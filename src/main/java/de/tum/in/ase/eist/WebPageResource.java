@@ -26,4 +26,5 @@ public class WebPageResource {
 		return "answer";
 
 	}
+
 }
