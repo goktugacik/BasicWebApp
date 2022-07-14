@@ -19,6 +19,7 @@ public class WebPageResource {
 		if (query == null) {
 			return "index";
 		}
+
 		String answer = queryProcessor.process(query);
 		model.addAttribute("query", query);
 		model.addAttribute("answer", answer);
