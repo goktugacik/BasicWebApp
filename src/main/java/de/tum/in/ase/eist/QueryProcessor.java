@@ -2,7 +2,9 @@ package de.tum.in.ase.eist;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 @Service
 public class QueryProcessor {
@@ -17,7 +19,7 @@ public class QueryProcessor {
            return query.split(":")[0];
         }
         else if(query.contains("plus")){
-            String[] sArr = query.split(" ");
+            String[] sArr = query.replaceAll(",","").split(" ");
             int sum = 0;
             for(int i=0; i<sArr.length; i++){
 
@@ -31,19 +33,19 @@ public class QueryProcessor {
             return String.valueOf(sum);
         }
         else if(query.contains("largest")){
-            String[] sArr = query.split(" ");
+            String[] sArr = query.replaceAll(",","").split(" ");
             int max = -999999999;
+            ArrayList<Integer> numbersList = new ArrayList<>();
             for(int i=0; i<sArr.length; i++){
                 try {
                     int number = Integer.parseInt(sArr[i]);
-                    if(number >= max){
-                        max = number;
-                    }
+                    numbersList.add(number);
                 } catch (Exception e) {
 
                 }
             }
-            return String.valueOf(max);
+
+            return String.valueOf( Collections.max(numbersList));
         }
         else {
             return "";
