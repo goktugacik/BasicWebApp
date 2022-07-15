@@ -9,6 +9,16 @@ import java.util.Collections;
 @Service
 public class QueryProcessor {
 
+    private boolean isSquare(int input) {
+        double cubeRoot = Math.sqrt(input);
+        return Math.round(cubeRoot) == cubeRoot;
+    }
+
+    private boolean isCube(int input) {
+        double cubeRoot = Math.cbrt(input);
+        return Math.round(cubeRoot) == cubeRoot;
+    }
+
     public String process(String query) {
 		query = query.toLowerCase();
         if (query.contains("shakespeare")) {
@@ -46,6 +56,34 @@ public class QueryProcessor {
             }
 
             return String.valueOf( Collections.max(numbersList));
+        }
+        else if(query.contains("cube")){
+            String[] sArr = query.replaceAll(",","").split(" ");
+            for(int i=0; i<sArr.length; i++){
+                try {
+                    int number = Integer.parseInt(sArr[i]);
+                    if(isCube(number) && isSquare(number)){
+                        return String.valueOf(number);
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+            return "";
+        }
+        else if(query.contains("multiplied")){
+            String[] sArr = query.replaceAll(",","").split(" ");
+            int mult = 1;
+            for(int i=0; i<sArr.length; i++){
+
+                try {
+                    int number = Integer.parseInt(sArr[i]);
+                    mult *= number;
+                } catch (Exception e) {
+
+                }
+            }
+            return String.valueOf(mult);
         }
         else {
             return "";
